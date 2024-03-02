@@ -3,7 +3,6 @@ import os
 import sys
 import Source.chessLogic as chessLogic
 import Source.chessEngine as chessEngine
-import time
 from copy import deepcopy
 
 class Gameplay:
@@ -96,8 +95,12 @@ class Gameplay:
         aiBoard = deepcopy(self.gameBoard)
         chessAI = chessEngine.ChessAI(aiBoard, self.gameBoard.playerToMove)
         move = chessAI.getBestMove(aiBoard, allLegalMoves)
+        if move == None:
+            pass
         #AI move is played on the board
-        self.gameBoard.makeFullMove(move)
+        else:
+            self.gameBoard.makeFullMove(move)
+            
         #clicked squares is emtied, as it is not the players turn.
         self.clickedSquares = []
     
@@ -110,10 +113,8 @@ class Gameplay:
         allLegalMoves = chessLogic.getAllLegalMoves(self.gameBoard)
         #if the player is going against the AI, and it's the AIs turn
         if self.blackPlayer == 'AI' and self.gameBoard.playerToMove == 'b':
-            t0 = time.time()
             self.aiMoveGetter(allLegalMoves)
-            t1 = time.time()
-            print(t1-t0)
+            
         #if the opponent isnt the AI, or if its the players turn
         else:
             #if two squares have been clicked
