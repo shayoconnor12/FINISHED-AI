@@ -57,60 +57,64 @@ class ChessAI:
                         
 
             return summedBoardValue
-        
-        def pawnStructureTotal():
-            doubledPawnValue = 0
-            emptyFileCount = 0
-            #generator to rotate the board -90 degrees
-            #done so I can iterate through each column
-            rotatedBoard = list(zip(*boardPosition))
+        '''
+            Below are my pawn structure and king safety functions. These were omitted from my final product, so are commented out.
+        '''
+        # def pawnStructureTotal():
+        #     doubledPawnValue = 0
+        #     emptyFileCount = 0
+        #     #generator to rotate the board -90 degrees
+        #     #done so I can iterate through each column
+        #     rotatedBoard = list(zip(*boardPosition))
             
-            #counts double pawns
-            for col in rotatedBoard:
-                #gets number of pawns of each colour for each row
-                whitePawnCount = col.count('P')
-                blackPawnCount = col.count('p')
-                #white 
-                match whitePawnCount:
-                    case 0:
-                        emptyFileCount -= 100
-                    case _:
-                        doubledPawnValue -= (whitePawnCount - 1)*100
-                #black 
-                match blackPawnCount:
-                    case 0:
-                        emptyFileCount += 100
-                    case _:
-                        doubledPawnValue += (blackPawnCount - 1)*100
+        #     #counts double pawns
+        #     for col in rotatedBoard:
+        #         #gets number of pawns of each colour for each row
+        #         whitePawnCount = col.count('P')
+        #         blackPawnCount = col.count('p')
+        #         #white 
+        #         match whitePawnCount:
+        #             case 0:
+        #                 emptyFileCount -= 100
+        #             case _:
+        #                 doubledPawnValue -= (whitePawnCount - 1)*100
+        #         #black 
+        #         match blackPawnCount:
+        #             case 0:
+        #                 emptyFileCount += 100
+        #             case _:
+        #                 doubledPawnValue += (blackPawnCount - 1)*100
 
-            return doubledPawnValue + emptyFileCount
+        #     return doubledPawnValue + emptyFileCount
         
-        def kingSafetyTotal():
-            kingSafetyValue = 0
-            #iterates through board
-            for row in range(0,8):
-                for col in range(0,8):
-                    #checks if the searched square is any colour of king
-                    searchedSquare = boardPosition[row][col]
-                    if searchedSquare.lower() == 'k':
-                        #iterates through 3 squares in front of kig
-                        for square in range(-1,2):
-                            #value sign will be negative for black, positive for white
-                            front = 1 if searchedSquare.islower() else -1
-                            valueSign = -1 if searchedSquare.islower() else 1
-                            guardRow = row+front
-                            guardCol = col+square
-                            if guardRow in range(0,8) and guardCol in range(0,8):
-                                guardingSquare = boardPosition[row+front][col+square]
-                                if guardingSquare != '':
-                                    if guardingSquare.isupper() == searchedSquare.isupper():
-                                        #adds value if theres a friendly guarding piece
-                                        kingSafetyValue += 100*valueSign
-                                else:
-                                    #deducts value if the square is empty
-                                    kingSafetyValue -= 30*valueSign
+        # def kingSafetyTotal():
+        #     kingSafetyValue = 0
+        #     #iterates through board
+        #     for row in range(0,8):
+        #         for col in range(0,8):
+        #             #checks if the searched square is any colour of king
+        #             searchedSquare = boardPosition[row][col]
+        #             if searchedSquare.lower() == 'k':
+        #                 #iterates through 3 squares in front of kig
+        #                 for square in range(-1,2):
+        #                     #value sign will be negative for black, positive for white
+        #                     front = 1 if searchedSquare.islower() else -1
+        #                     valueSign = -1 if searchedSquare.islower() else 1
+        #                     guardRow = row+front
+        #                     guardCol = col+square
+        #                     if guardRow in range(0,8) and guardCol in range(0,8):
+        #                         guardingSquare = boardPosition[row+front][col+square]
+        #                         if guardingSquare != '':
+        #                             if guardingSquare.isupper() == searchedSquare.isupper():
+        #                                 #adds value if theres a friendly guarding piece
+        #                                 kingSafetyValue += 100*valueSign
+        #                         else:
+        #                             #deducts value if the square is empty
+        #                             kingSafetyValue -= 30*valueSign
+        
+        #     return kingSafetyValue
 
-            return kingSafetyValue
+        
         #coefficients for the evaluation totals
         #pieceValues are given highest priority.
         a,b,c = 1,0.1,0.1
