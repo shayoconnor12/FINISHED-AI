@@ -105,18 +105,6 @@ class Board:
             self.currentPos = fenParse(self.positionLog[-1])
             # Switch player after undoing a move
             self.playerToMove = 'W' if self.playerToMove == 'b' else 'b'
-
-    def display(self):
-        # Printing the column labels
-        print("  a b c d e f g h")
-        print(" +-----------------+")
-        row_number = 8  # Starting from the top of the board which is 8 in chess
-        for row in self.currentPos:
-            # Creating a string for the row with each piece separated by a space for readability
-            row_display = " ".join(piece if piece else '.' for piece in row)
-            print(f"{row_number}| {row_display} |")
-            row_number -= 1
-        print(" +-----------------+")
     
     def isGameOver(self):
         moveGen = MoveGenerator(self)
